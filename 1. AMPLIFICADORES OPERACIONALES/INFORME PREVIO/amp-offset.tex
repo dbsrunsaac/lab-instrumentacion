@@ -32,7 +32,7 @@
 		T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 % Color Enlace
-\definecolor{colorEnlace}{RGB}{0, 0, 0}
+\definecolor{colorEnlace}{RGB}{0, 0, 0} 
 \hypersetup{
 	colorlinks=true,
 	linkcolor=colorEnlace,
@@ -86,7 +86,7 @@
 		\makebox[\textwidth][c]{\normalsize\textit{Escuela profesional de Ingeniería Electrónica}}\\
 		\makebox[\textwidth][c]{\normalsize\textit{Asignatura: Instrumentación Electrónica}}\\
 		\and
-		\IEEEauthorblockN{Ing. Jose Luis Flores}
+		\IEEEauthorblockN{Ing. Jose Luis Flores Vasquez}
 		\IEEEauthorblockA{Ingeniero Electrónico \\
 			Cusco, Perú \\
 			docente@unsaac.edu.pe}
@@ -122,11 +122,20 @@
 	
 	\section{Tensión continua y efecto del condensador $C_1$ y resistencia $R_1$}
 	
-	Al trabajarse con señales alternas durante el experimentación una medición DC en la resistencia $R_1$ tiene como resultado un valor de 0v, sin embargo al realizar esta misma medición para una configuración AC en el multímetro el capacitor $C_1$ y $R_1$ al tratarse de impedancia, esta actúa como un divisor de tensión w2 
+	Al trabajarse con señales alternas durante el experimentación una medición DC en la resistencia $R_1$ tiene como resultado un valor de 0v, sin embargo al realizar esta misma medición para una configuración AC en el multímetro el capacitor $C_1$ y $R_1$ al tratarse de una reactancia capacitiva y la resistencia en la salida, tal topología actúa como un divisor de tensión, siendo para una frecuencia en la señal de entrada de 1k [Hz], se aprecia en la resistencia $R_1$ más del 70\% del voltaje defino en la entrada, siendo así que este nivel de voltaje es el aplicado en el amplificador operacional.
 	
+	\section{Señal de entrada en la resistencia $R_1$}
 	
+	Una vez configurado el instrumento de medición (osciloscopio) se procedió a realizar la conexión de la sonda entre los terminales de la resistencia, siendo estos próximos o similares a la señal alterna de entrada debido a la configuración como divisor de tensión explicada en el punto anterior, por lo tanto para esta mediciones se obtuvieron:
+	
+	\begin{itemize}
+		\item Amplitud: 20mVp
+		\item Frecuencia: 1K Hz
+		\item Valor medio (DC) : 0v
+	\end{itemize}
+	
+	Obteniendo finalmente un valor medio de 0v al tratarse de una señal sinusoidal.
 	
 	\bibliographystyle{IEEEtran}
 	\bibliography{biblio}
 \end{document}
-o9
