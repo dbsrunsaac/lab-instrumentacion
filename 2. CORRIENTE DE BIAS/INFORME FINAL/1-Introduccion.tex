@@ -2,7 +2,7 @@
 \section*{Introducción}
 Los amplificadores operacionales (op-amps) son dispositivos electrónicos fundamentales en el diseño de circuitos analógicos, ya que permiten amplificar señales muy pequeñas, realizar operaciones matemáticas y procesar información en función a una configuración entre sus entradas, siendo así que para tal propósito es necesario contar con cierta precisión entre su terminales diferenciales, por lo tanto un análisis de las corrientes de polarización es necesario para lograr este objetivo el cual afecta a mediciones de rango pequeño como las provenientes del cuerpo humano o en la industrial en las cuales los requisitos de voltaje y/o corriente son pequeños para extender el tiempo de vida de un determinado sensor.
 
-Así mismo dentro del desarrollo de esta experiencia se verá en pleno funcionamiento de 2 amplificadores operacionales y su respuesta y/o tensión de offset y corrientes de bias (polarización) entre sus entradas inversora y no inversora, para lo cual se emplea un circuito de prueba.
+Así mismo dentro del desarrollo de esta experiencia se verá en pleno funcionamiento de 2 amplificadores operacionales y su respuesta y/o tensión de offset y corrientes de bias (polarización) entre sus entradas inversora y no inversora, para lo cu	al se emplea un circuito de prueba.
 
 
 \section{ Mediciones de voltaje divisor de tensión y amplificadores operacionales}
@@ -27,6 +27,7 @@ Como punto de partida se compararon los niveles de voltaje obtenidos a partir de
 Las mediciones para cada circuito con el operacional indicado se muestran en la tabla \ref{tab:mediciones-voltaje} y de la cual se puede inferir que existen una cierta variación entre los valores esperados idealmente según las consideraciones teóricas para los amplificadores operacionales, lo que destaca en cierta forma la existencia de un fenómeno electrico no considera dentro del análisis general usado para el estudio de los operacionales.
 
 \begin{table}[]
+	\centering
 	\begin{tabular}{|l|l|}
 		\hline
 		& Voltaje {[}V{]} \\ \hline
@@ -53,6 +54,7 @@ Las mediciones realizadas durante la experiencia se realizaron en el circuito mo
 Obteniendo como medición y resultado para cada operacional los datos mostrados en la tabla \ref{tab:mediciones-vo-vos} denotándose una pequeña variación en las tensiones de salida que rondan tan solo las milésima y con un error \% de 0.00982. 
 
 \begin{table}[]
+	\centering
 	\begin{tabular}{|l|l|l|}
 		\hline
 		\multicolumn{1}{|c|}{\textbf{Dispositivo}} & \multicolumn{1}{c|}{\textbf{Vo}} & \multicolumn{1}{c|}{\textbf{Vos}} \\ \hline
@@ -66,11 +68,18 @@ Obteniendo como medición y resultado para cada operacional los datos mostrados 
 % TODO: \usepackage{graphicx} required
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.5\linewidth]{media/opam-offset}
+	\includegraphics[width=0.4\linewidth]{media/opam-offset}
 	\caption{Circuito de prueba para las mediciones offset en los amplificadores operacionales}
 	\label{fig:opam-offset}
 \end{figure}
 
+Finalmente para resultados obtenidos se debe destacar adicionalmente que $R_6$ tiene una magnitud de 10k $\Omega$.
+
+\section{ Relación entre el $V_{OS}$ y $V_O$}
+
+En un amplificador operacional ideal se tiene la idea de que las corrientes en sus entradas inversora y no-inversora son nulas o equivalentes a 0A, sin embargo de forma experimental y/o real esto no puede ser debido a que los transistores internos requieren la existencia de una corriente de polarización entre sus terminales para que se encuentren en la zona activa; por otro lado al considerar las configuraciones diferenciales estas corrientes de ingreso para cumplir con la paridad considerada en su diseño deberían ser igual, pero a consecuencia de pequeñas variaciones en las entradas o los valores físicos de los propios amplificadores operacionales esto no ocurre existiendo diferencias que afectan a la salida $V_O$ y generando a su vez un voltaje de salida $V_{OS}$ de offset.
+
+Así mismo como se destaca en \ref{eq:vos-calculo} este valor es dependiente del voltaje de salida, la resistencia de retroalimentación y la resistencia en la entrada equivalente a 100 $\Omega$.
 
 \section{Resultados finales}
 
