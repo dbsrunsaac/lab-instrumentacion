@@ -3,3 +3,10 @@
 *.log
 *.out
 *.synctex.gz
+*.rar
+*.pdf
+*.acn
+*.bcf
+*.nlo
+*.run.xml
+*.xdy
