@@ -12,3 +12,5 @@
 *.xdy
 *.ms14 (Security copy)
 
+# Permitir archivos PDF de una carpeta
+!GUIAS/*.pdf
