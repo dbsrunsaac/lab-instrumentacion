@@ -182,8 +182,25 @@ Del análisis previo se puede destacar que el ancho de banda del amplificador op
 
 \section{Relación matemáticas para cada expresión}
 
+Al aplicar la ley de corrientes de Kirchhoff (LTK) en la entrada retroalimentada e igualar los voltajes con la entrada no-inversora, se obtienen las siguientes relaciones 
+
+\begin{align}
+	v_{\text{OUT}} &= \frac{R_2 + R_1}{R_1} v_1 - \frac{R_2}{R_1} v_2 \\[6pt]
+	&= \frac{R_2 + R_1}{R_1} \cdot \frac{R_2}{R_1 + R_2} v_1 - \frac{R_2}{R_1} v_2
+\end{align}
+
+Y de las cuales se puede destacar que la salida es la diferencia entre los voltajes en cada entrada afectada por un factor y/o ganancia entre las resistencias $R_2$ y $R_1$, siendo para este caso tal factor equivalente $ \frac{R_2}{R_1} = 9.98$ y el cual se diferencia de la ganancia esperada en $0.2 \%$
+
 
 \section*{Resultados finales}
 
+De la experimentación se pude destacar 
+\begin{itemize}
+	\item La experimentación permitió comprobar que la ganancia en modo diferencial del amplificador operacional LM741 se mantiene estable en bajas frecuencias, pero disminuye de manera significativa conforme la frecuencia aumenta, destacándose un punto de inflexión alrededor de los 5 kHz y un ancho de banda efectivo cercano a los 50 kHz.
+	
+	\item En el modo común se evidenció que el amplificador atenúa la señal compartida entre las entradas, mostrando un incremento progresivo de la ganancia común con la frecuencia. Esto permitió verificar experimentalmente la importancia del CMRR como parámetro clave para caracterizar la capacidad de rechazo al ruido.
+	
+	\item Al calcular el CMRR experimentalmente, se obtuvo un valor máximo de 43,38 dB, el cual se encuentra por debajo del especificado en la hoja de datos (70 dB). Esta diferencia se relaciona principalmente con las condiciones experimentales, como el voltaje de alimentación reducido y la presencia de tensiones de offset en la salida, demostrando la sensibilidad de la medición y la relevancia de considerar las condiciones de prueba en la caracterización de dispositivos electrónicos.
+\end{itemize}
 
 
