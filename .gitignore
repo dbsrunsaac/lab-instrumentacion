@@ -4,6 +4,7 @@
 *.out
 *.synctex.gz
 *.rar
+*.zip
 *.pdf
 *.acn
 *.bcf
