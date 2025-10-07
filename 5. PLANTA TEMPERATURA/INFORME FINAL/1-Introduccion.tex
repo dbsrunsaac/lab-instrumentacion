@@ -16,7 +16,7 @@ En la figura \ref{fig:planta-termica} se muestra la planta implementada para el 
 
 Con la lectura de datos y su organización en un archivo de excel, el siguiente paso consiste en realizar el procesamiento de estos mediante MATLAB.
 
-En la figura \ref{fig:datos} se muestra una fracción de los datos de temperatura registrados en un matriz columna de excel
+En la figura \ref{fig:datos-temperatura} se muestra una fracción de los datos de temperatura registrados en un matriz columna de excel, los cuales se importaran mediante la herramienta \textbf{Import data} en el menú HOME de MATLAB.
 
 % TODO: \usepackage{graphicx} required
 \begin{figure}[h]
@@ -29,15 +29,16 @@ En la figura \ref{fig:datos} se muestra una fracción de los datos de temperatur
 
 \section{Obtención de la F.T de la planta y Sintonización PI}
 
+Como se describió previamente para el procesamiento de las mediciones obtenidas en MATLAB es necesario exportar estos a su entorno de trabajo, siendo así que mediante la herramienta \textbf{Import Data} se puede gestionar este tratamiento definiendo el modo de importancia, para el caso de la experiencia obtener un vector columna nos permitirá el trabajo en conjunto.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.5\linewidth]{media/ingreso-datos-matlab}
+	\includegraphics[width=0.6\linewidth]{media/ingreso-datos-matlab}
 	\caption{Importe de datos al entorno matlab}
 	\label{fig:ingreso-datos-matlab}
 \end{figure}
 
-
+En la figura \ref{fig:ingreso-datos-matlab} se aprecia el procedimiento realizado en la interfaz del programa, siendo así que luego de esta operación los datos obtenidos desde excel se encuentran en el espacio de trabajo de MATLAB (panel derecho) con el nombre de variable T, referenciando a la temperatura.
 
 % TODO: \usepackage{graphicx} required
 \begin{figure}[h]
@@ -47,6 +48,7 @@ En la figura \ref{fig:datos} se muestra una fracción de los datos de temperatur
 	\label{fig:plot-datos-importados}
 \end{figure}
 
+Con los datos ya en el entorno es posible graficarlos como se muestra en \ref{fig:plot-datos-importados} para observar la correlación entre tiempo y temperatura, siendo así que se encuentra estabilidad del sistema para un tiempo aproximado de 600s o 10min desde el inicio del experimento.
 
 % TODO: \usepackage{graphicx} required
 \begin{figure}[h]
@@ -56,6 +58,7 @@ En la figura \ref{fig:datos} se muestra una fracción de los datos de temperatur
 	\label{fig:pid-tuner}
 \end{figure}
 
+Luego del análisis grafico y una comprobación visual de datos y su coherencia se procede con la estimación de la planta mediante la herramienta PID Tuner mediante los datos definidos en el espacio de trabajo, la primera interfaz mostrada en \ref{fig:pid-tuner} nos permite utilizar una planta existente o definir una nueva mediante el importe de datos, para este caso se seleccionara la segunda opción \textbf{Import}
 
 % TODO: \usepackage{graphicx} required
 \begin{figure}[h]
@@ -65,6 +68,10 @@ En la figura \ref{fig:datos} se muestra una fracción de los datos de temperatur
 	\label{fig:importe-datos-pid-tuner}
 \end{figure}
 
+Con los datos ya importados como se muestra en \ref{fig:importe-datos-pid-tuner}, en el primer campo se define el nombre del vector columna, para este caso \textbf{T} y luego el tipo de respuesta deseado para este propósito se uso un escalón unitario el cual permite visualizar la respuesta del sistema respecto al tiempo, así como ver su estado transitorio, ideal para una sintonización PID.
+
+Es importante por otro lado, establecer la amplitud con la cual se obtuvieron los datos el cual se corresponde con el valor PWM definido en Arduion y equivalente a 200, además también se debe considerar el tiempo para el muestreo de datos, siendo en este caso equivalente a 1seg.
+
 % TODO: \usepackage{graphicx} required
 \begin{figure}[h]
 	\centering
@@ -73,27 +80,94 @@ En la figura \ref{fig:datos} se muestra una fracción de los datos de temperatur
 	\label{fig:preprocesamiento-datos}
 \end{figure}
 
+Como la medición de temperatura no inicia exactamente en los 0 grados, si no que depende del factor ambiental iniciando con las mediciones en 20C° es necesario reducir este offset hasta el minimo posible agregando así una etapa de pre procesamiento, con la sub herramienta también suministrada en PID Tuner, la imagen \ref{fig:preprocesamiento-datos} muestra este procedimiento
+
 % TODO: \usepackage{graphicx} required
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.5\linewidth]{media/estimacion-planta}
+	\includegraphics[width=0.8\linewidth]{media/estimacion-planta}
 	\caption{Estimación de la planta a partir de los datos importados}
 	\label{fig:estimacion-planta}
 \end{figure}
 
+Después del pre procesamiento y ya eliminado el offset se procede con la estimación de la planta mediante el ajuste de datos, para este caso es necesario tener en cuenta que una planta termica tendrá cierto delay en su funcionamiento por lo que es necesario marcar la opción delay en el panerl superior; como resultado de este proceso mostrado en \ref{fig:estimacion-planta} se puede observar una apróximación al 97\% el cual es un buen indicador para su modelamiento.
+
 % TODO: \usepackage{graphicx} required
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.5\linewidth]{media/planta-sintonizada-pi}
+	\includegraphics[width=0.7\linewidth]{media/planta-sintonizada-pi}
 	\caption{Planta PI sintonizada para mejorar el tiempo de respuesta}
 	\label{fig:planta-sintonizada-pi}
 \end{figure}
 
+Una vez obtenida el modelo de la planta es posible aplicar una sintonización de los parámetros PI para modificar el tiempo de establecimiento o respuesta y el sobreimpulso obtenido como resultado del procedimiento, en la figura \ref{fig:planta-sintonizada-pi} se muestra este ajuste mediante los controles superiores obteniendo como salida una establecimiento de 180seg (3min) .
+
 % TODO: \usepackage{graphicx} required
-\begin{figure}
+\begin{figure}[h]
 	\centering
-	\includegraphics[width=0.5\linewidth]{media/ft-obtenida-sintonizacion}
+	\includegraphics[width=0.7\linewidth]{media/ft-obtenida-sintonizacion}
 	\caption{Función de transferencia estimada al 97\% y constantes Kp y Ki}
 	\label{fig:ft-obtenida-sintonizacion}
 \end{figure}
+
+Finalmente es posible exportar la planta obtenida al espacio de trabajo mediante el uso de variables, logrando así obtener la planta y los valores $K_p = 15.6$ y $K_i=0.0791s$ resultantes de la sintonización.
+
+\begin{lstlisting}[numbers=none, caption={Código Arduino - Implementación de la planta}, label="lst:codigo-arduino"]
+	#include <PID_v1.h>
+	#define PIN_INPUT A0
+	#define PIN_OUTPUT 3
+	
+	unsigned long periodo = 1000;//Periodo de muestreo en terminal en ms
+	unsigned long nowTime = 0;
+	float millis_div_1000 = 0;
+	float millisLast_div_1000 = 0;
+	float aux=0;
+	float tempC = 0.0; //Temperatura del Heater 1
+	double Setpoint, Input, Output;
+	//Specify the links and initial tuning parameters
+	double Kp=15.6, Ki=0.079, Kd=0.0;
+	
+	PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
+	
+	
+	void setup()
+	{
+		Input = analogRead(PIN_INPUT);
+		Setpoint = 0.0;
+		analogReference (INTERNAL); //Referencia analogica PIN AREF (1.1v)
+		Serial.begin(9600);
+		myPID.SetSampleTime(1000);
+		myPID.SetMode(AUTOMATIC);
+	}
+	void loop()
+	{
+		while (Serial.available() > 0)
+		{
+			Setpoint=Serial.parseFloat();//Introducir el setpoint desde el terminal
+		}
+		aux=0;
+		for(int i=0;i<10;i++)
+		{
+			tempC = analogRead(PIN_INPUT);
+			tempC = (1.1 * tempC * 100.0)/1024.0;
+			aux = aux + tempC;
+			delay(5);
+		}
+		Input = aux/10.0;
+		myPID.Compute();
+		analogWrite(PIN_OUTPUT, Output);
+		if(millis() > nowTime + periodo)
+		{
+			nowTime=millis();
+			millis_div_1000 = (float)nowTime/1000 - millisLast_div_1000;
+			Serial.print(Setpoint);
+			Serial.print(",");
+			Serial.print(Input);
+			Serial.print(",");
+			Serial.println(Output/10);
+			//Serial.print(",");
+			//Serial.println(millis_div_1000);
+		}
+	}
+\end{lstlisting}
 
