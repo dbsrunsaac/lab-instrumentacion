@@ -1,0 +1,99 @@
+\section{Introducción}
+
+\section{Obtención de datos}
+
+Una vez implementada la planta termica con el sensor de temperatura LM35 integrado en conjunto con el transistor de potencia TIP31C y disipador para la transferencia de calor, se procede con la lectura y toma de datos desde el monitor serial perteneciente al IDE Arduino modelando la planta mediante el sintonizador PID Tuner que internamente cuenta con herramientas para calibrar la función de transferencia a partir de un conjunto de datos.
+
+En la figura \ref{fig:planta-termica} se muestra la planta implementada para el propósito de la experiencia 
+
+% TODO: \usepackage{graphicx} required
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{media/planta-termica}
+	\caption{Implementación de la planta térmica - Medición de temperatura}
+	\label{fig:planta-termica}
+\end{figure}
+
+Con la lectura de datos y su organización en un archivo de excel, el siguiente paso consiste en realizar el procesamiento de estos mediante MATLAB.
+
+En la figura \ref{fig:datos} se muestra una fracción de los datos de temperatura registrados en un matriz columna de excel
+
+% TODO: \usepackage{graphicx} required
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{media/datos-temperatura}
+	\caption{Datos de temperatura - Sensor LM35}
+	\label{fig:datos-temperatura}
+\end{figure}
+
+
+\section{Obtención de la F.T de la planta y Sintonización PI}
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{media/ingreso-datos-matlab}
+	\caption{Importe de datos al entorno matlab}
+	\label{fig:ingreso-datos-matlab}
+\end{figure}
+
+
+
+% TODO: \usepackage{graphicx} required
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{media/plot-datos-importados}
+	\caption{Relación de datos de temperatura - tiempo obtenidos desde el monitor serial arduino}
+	\label{fig:plot-datos-importados}
+\end{figure}
+
+
+% TODO: \usepackage{graphicx} required
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{media/pid-tuner}
+	\caption{Herramienta PID Tuner - MATLAB}
+	\label{fig:pid-tuner}
+\end{figure}
+
+
+% TODO: \usepackage{graphicx} required
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{media/importe-datos-pid-tuner}
+	\caption{Importe de datos a la herramiente PID Tuner - MATLAB}
+	\label{fig:importe-datos-pid-tuner}
+\end{figure}
+
+% TODO: \usepackage{graphicx} required
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{media/preprocesamiento-datos}
+	\caption{Pre procesamiento de datos - Eliminación del offset}
+	\label{fig:preprocesamiento-datos}
+\end{figure}
+
+% TODO: \usepackage{graphicx} required
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{media/estimacion-planta}
+	\caption{Estimación de la planta a partir de los datos importados}
+	\label{fig:estimacion-planta}
+\end{figure}
+
+% TODO: \usepackage{graphicx} required
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{media/planta-sintonizada-pi}
+	\caption{Planta PI sintonizada para mejorar el tiempo de respuesta}
+	\label{fig:planta-sintonizada-pi}
+\end{figure}
+
+% TODO: \usepackage{graphicx} required
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\linewidth]{media/ft-obtenida-sintonizacion}
+	\caption{Función de transferencia estimada al 97\% y constantes Kp y Ki}
+	\label{fig:ft-obtenida-sintonizacion}
+\end{figure}
+
