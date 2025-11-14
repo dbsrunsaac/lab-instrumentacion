@@ -12,8 +12,49 @@
 % Paquetes necesarios
 \usepackage{setspace}  % Para interlineado
 \usepackage{titlesec}   % Para configurar el espaciado entre títulos y texto
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 \usepackage{xcolor}
 \usepackage{listings}
+\usepackage{inconsolata} % Fuente monoespaciada moderna
+
+% Definición de colores
+\definecolor{background}{HTML}{F5F5F5}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{keywordcolor}{rgb}{0,0,0.8}
+\definecolor{commentgreen}{rgb}{0,0.6,0}
+
+\lstdefinestyle{arduino}{
+	backgroundcolor=\color{background},
+	commentstyle=\color{commentgreen}\ttfamily,
+	keywordstyle=\color{keywordcolor}\bfseries,
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	keepspaces=true,
+	numbers=left,
+	numbersep=8pt,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=2,
+	frame=single,
+	rulecolor=\color{codegray},
+	frameround=tttt
+}
+
+% Palabras clave de Arduino
+\lstset{
+	language=C++,
+	style=arduino,
+	morekeywords={
+		pinMode,digitalWrite,analogRead,analogWrite,delay,Serial,setup,loop,INPUT,OUTPUT,HIGH,LOW
+	}
+}
 %--------- Configuración de sangría y espaciado entre párrafos --------
 
 % Configuración de sangría
