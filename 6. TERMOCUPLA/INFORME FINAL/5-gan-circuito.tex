@@ -1,0 +1,55 @@
+\section*{Ganancia total del circuito}
+
+En el figura \ref{fig:amplificador-voltaje} se muestra el amplificador de voltaje generado por diferencia temperatura en el conductor de la termocupla, siendo así que este circuito además de amplificar incluye el filtrado de la señal para una frecuencia de corte 6Hz definida por los capacitores $C_1$ y $C_2$ además de agregar una ganancia definida por la configuración de resistencias de $R_1$ a $R_4$.
+
+La ganancia total del circuito esta definida por el producto de la ganancia individual de cada Amp. operacional o bloque elevando así el nivel de voltaje CD obtenido en la salida, por tanto para determinar A (ganancia) se consideraran operacionales ideales y se realizará un calculo independiente para facilitar el análisis matemático detallando al mismo tiempo que cada operacional tiene una configuración inversora amplificando negativamente por etapa permitiendo así que este factor de incremento se haga positivo.
+
+En las ecuaciones se puede apreciar el proceso detallado para cada elemento definiendo una capacitancia $C_1 = $ y $C_2 = $ para obtener la ganancia deseada, así mismo se puede además obtener una diagrama de bode para realizar el análisis en frecuencia, sin embargo al usar una señal CD de entrada esto no es de vital importancia para el análisis.
+
+\begin{align*}
+	Z_1 = R_2 || C_1\\
+	Z_1 = \frac{R_2}{1 + SC_1R_2}\\
+	Luego \\
+	Z_2 = R_4 || C_2\\
+	Z_2 = \frac{R_4}{1 + SC_2R_4}\\
+\end{align*}
+
+Considerando las expresiones previas se deduce a partir de la configuración en los operaciones la formula para su función de transferencia como el bloque de retroalimentación respecto del bloque de entrada, siendo así que se obedece la siguiente expresión $\frac{V_O}{V_i} = \frac{R_F}{R_i} $, aplicando esta relación se obtiene la función de transferencia completa del circuito mediante el uso de $Z_1$ y $Z_2$, obteniendo las expresiones \ref{eq:ft-opam1} y \ref{eq:ft-opam2} para el primer y segundo operacional respectivamente.
+
+\begin{equation}
+	\frac{V_y}{V_i} = \frac{R_2}{R_1(1 + SC_1R_2)}
+	\label{eq:ft-opam1}
+\end{equation}
+
+\begin{equation}
+	\frac{V_o}{V_y} = \frac{R_4}{R_3(1 + SC_2R_4)}
+	\label{eq:ft-opam2}
+\end{equation}
+
+La ganancia total se obtiene a partir del producto de ambos resultados estableciendo así una función de transferencia de un sistema de 2do orden, sin embargo en este mismo para poder obtener una expresión para la ganancia de forma certera es necesario correlacionar el resultado obtenido con la expresión general de un sistema de 2do orden \cite{ogata_ingenieria_control_moderna}, mostrado en la ecuación \ref{eq:sistema-2do-orden}
+
+\begin{equation}
+	H(S) = \frac{K\omega_n}{S^2 + 2\xi\omega_nS +  \omega^2_n} 
+	\label{eq:sistema-2do-orden}
+\end{equation}
+
+Con esta consideración la función de transferencia del circuito resulta como en \ref{eq:ft-circuito}
+
+\begin{equation}
+	%\frac{V_o}{V_i} = \frac{ \frac{R_2R_4}{R_1R_3C_1C_2R_2R_4} }{ S^2 + S\frac{C_1R_2 + C_2R_4}{C_1C_2R_2R_4} + \frac{1}{C_1C_2R_2R_4} } 
+	\frac{V_o}{V_i} = \frac{ \dfrac{R_2R_4}{R_1R_3C_1C_2R_2R_4} }{ s^2 +s\frac{C_1R_2 + C_2R_4}{C_1C_2R_2R_4} + \frac{1}{C_1C_2R_2R_4} }
+	\label{eq:ft-circuito}
+\end{equation}
+
+En la cual mediante la comparación se obtiene que el factor K es equivalente a una relación entre las respectivas resistencias para cada etapa del circuito de la siguiente forma \ref{eq:ganancia}
+
+\begin{equation}
+	K = \frac{R_2R_4}{R_1R_3}
+	\label{eq:ganancia}
+\end{equation}
+
+Siendo así que al utilizar los valores definidos en la figura \ref{fig:amplificador-voltaje} desde $R_1$ a $R_4$ se obtienen una ganancia de $K = 250$.
+
+Para el cálculo de la tensión de salida considerando como entrada el voltaje producido por el termopar a la temperatura ambiente, para ello se debe considerar el calculo en base a temperaturas referencia y luego interpolar los datos en función a la tablas de información de cada dispositivo, por lo tanto para una temperatura de referencia a 0 Cº, se tiene un voltaje de $V_t = 0.667mV$
+
+Por tanto luego de aplicar la ganancia de $K=250$ el voltaje de salida en el amplificador será de: $V_o = 166.75mV$
